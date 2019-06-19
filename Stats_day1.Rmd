@@ -389,7 +389,8 @@ look when the assumptions of a linear regression are violated?
 > Predicting Metal Recovery vs % Sulphur in feed in flotation
 
 The data for this exercise is found in the `data` folder, so read it in and fix up the column names:
-This dataset records XXXXX
+This dataset records the percentage recovery of nickel at a processing plant, as a function of 
+sulphur content in the ore.
 
 
 ```{r 8B_data}
@@ -418,16 +419,24 @@ recovery_plot + scale_y_continuous(trans = "log10")
 Not at all. How about the x axis?
 
 ```{r x_log}
-recovery_plot + scale_x_continuous(trans = "asn")
+recovery_plot + scale_x_continuous(trans = "log10")
 ```
 
 Looking a bit better. But there are other transformations you can try as well as options for the 
 `trans` argument of `scale_x_continuous()`. Try out an exponential (`exp`), square root (`sqrt`),
 natural logarithm (`log`), or reciprocal (`reciprocal`) transformation instead on each of axes.
 
+You can try other transformations as well, but these will have to be done on the data itself. For 
+example, to try squaring a variable you would do:
+
+```{r data_transform}
+ggplot(recovery, aes(x = feed_sulphur^2, y = metal_recovery)) + geom_point()
+```
+
+
 Which transformation (if any) seemed to be the most effective?
 
-```{r}
+```{r test_transformations}
 recovery_plot + _______
 ```
 
