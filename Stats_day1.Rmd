@@ -8,7 +8,7 @@ library(tidyverse)
 ```
 
 
-# Exercise 1
+# Exercise 1E
 
 Sampling from distributions in R is done using the `r<distrib>()` functions, where <distrib> is substituted for the short name of a distribution. Some distributions you might be exposed to (and their sampling functions) are:
 
@@ -73,15 +73,22 @@ ggplot(long_norm, aes(x = sample_value)) + geom_histogram() + facet_wrap(~ sampl
 
 > Create box and whisker plots for your repeated samples. Compare with the histograms, do they summarise the distributions well?
 
+By default, the `boxplot()` function will plot one boxplot for each column in your data. This may not be suitable if you have a tidy dataframe with one column specifying a grouping variable. In this case, you can use the formula method to create boxplots of one column based on groupings in a second column. Both examples are shown below with our wide and long datasets.
+
+Using `ggplot` provides more control over how the boxplots are constructed. But it may be overkill if you are just waanting a quick initial look at your data.
+
 ```{r boxplots}
-#Boxplots with boxplot()
+#Normal distribution
+##Boxplots with boxplot()
 boxplot(repeated_norm)
+
+boxplot(sample_value ~ sample_id, data = long_norm)
 
 #Boxplots with ggplot
 ggplot(long_norm, aes(x=sample_id, y = sample_value)) + geom_?????()
 ```
 
-> Using the inbuilt datasets `sleep` and `InsectSprays`. Explore their data with histograms and boxplots.
+> To practice these on 'real' data, we will use the inbuilt datasets `sleep` and `InsectSprays`. Explore these two datasets with histograms and boxplots. What are the questions each dataset is trying to answer, and what are your initial impressions from looking at the data?
 
 ```{r real_data}
 #Learn about the datasets
