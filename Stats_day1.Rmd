@@ -10,7 +10,9 @@ library(tidyverse)
 
 # Exercise 1E - Sampling and distributions
 
-Sampling from distributions in R is done using the `r<distrib>()` functions, where <distrib> is substituted for the short name of a distribution. Some distributions you might be exposed to (and their sampling functions) are:
+Sampling from distributions in R is done using the `r<distrib>()` functions, where <distrib> is 
+substituted for the short name of a distribution. Some distributions you might be exposed to 
+(and their sampling functions) are:
 
 * The Normal (Gaussian) distribution - `rnorm()`
 * The Poisson distribution - `rpois()`
@@ -18,7 +20,9 @@ Sampling from distributions in R is done using the `r<distrib>()` functions, whe
 * The Exponential distribution - `rexp()`
 * The Binomial distribution - `rbinom()`
 
-Each of these functions are called with an argument `n` for the number of samples to take, as well as arguments that specify the parameters of the distribution. For example, a normal distribution is defined by it's mean and standard deviation, so these can be provided to `rnorm()`
+Each of these functions are called with an argument `n` for the number of samples to take, as well 
+as arguments that specify the parameters of the distribution. For example, a normal distribution is
+defined by it's mean and standard deviation, so these can be provided to `rnorm()`
 
 ```{r distribution_sampling}
 #Using default mean (0) and standard deviation (1)
@@ -32,9 +36,12 @@ normal_default
 normal_specified
 ```
 
-Using these sampling functions, complete the following exercises. Some initial code has been provided but you will need to fill in the blanks (????? or _____) and extend them to other distributions.
+Using these sampling functions, complete the following exercises. Some initial code has been 
+provided but you will need to fill in the blanks (????? or _____) and extend them to other 
+distributions.
 
->Sample from the Normal, Binomial and one other distribution.  Take 5, 10, 200 and 1000 samples with default parameters and histogram the results.   
+>Sample from the Normal, Binomial and one other distribution.  Take 5, 10, 200 and 1000 samples 
+with default parameters and histogram the results.   
 
 ```{r changing_sample_size}
 #Normal distribution
@@ -50,11 +57,19 @@ _____
 _____
 ```
 
-> Take 30 samples and repeat this 6 times for your chosen distributions. Histogram the observations. How does the histogram of the samples look different each time?
+> Take 30 samples and repeat this 6 times for your chosen distributions. Histogram the observations.
+How does the histogram of the samples look different each time?
 
 ```{r repeated_sampling}
 #Normal distribution
-repeated_norm <- tibble(a = rnorm(30), b = rnorm(30), c = rnorm(30), d = rnorm(30), e = rnorm(30), f = rnorm(30))
+repeated_norm <- tibble(
+  a = rnorm(30), 
+  b = rnorm(30), 
+  c = rnorm(30), 
+  d = rnorm(30), 
+  e = rnorm(30), 
+  f = rnorm(30)
+)
 
 repeated_norm
 
@@ -71,11 +86,17 @@ long_norm
 ggplot(long_norm, aes(x = sample_value)) + geom_histogram() + facet_wrap(~ sample_id)
 ```
 
-> Create box and whisker plots for your repeated samples. The central box shows between (roughly) the quartiles of the data, with the median represented  by a line. The 'whiskers' goes out to the extremes of data. Compare with the histograms, do they summarise the distributions well?
+> Create box and whisker plots for your repeated samples. The central box shows between (roughly) 
+the quartiles of the data, with the median represented  by a line. The 'whiskers' goes out to the 
+extremes of data. Compare with the histograms, do they summarise the distributions well?
 
-By default, the `boxplot()` function will plot one boxplot for each column in your data. This may not be suitable if you have a tidy dataframe with one column specifying a grouping variable. In this case, you can use the formula method to create boxplots of one column based on groupings in a second column. Both examples are shown below with our wide and long datasets.
+By default, the `boxplot()` function will plot one boxplot for each column in your data. This may 
+not be suitable if you have a tidy dataframe with one column specifying a grouping variable. In this
+case, you can use the formula method to create boxplots of one column based on groupings in a second
+column. Both examples are shown below with our wide and long datasets.
 
-Using `ggplot` provides more control over how the boxplots are constructed. But it may be overkill if you are just waanting a quick initial look at your data.
+Using `ggplot` provides more control over how the boxplots are constructed. But it may be overkill 
+if you are just wanting a quick initial look at your data.
 
 ```{r boxplots}
 #Normal distribution
@@ -88,7 +109,9 @@ boxplot(sample_value ~ sample_id, data = long_norm)
 ggplot(long_norm, aes(x=sample_id, y = sample_value)) + geom_?????()
 ```
 
-> To practice these on 'real' data, we will use the inbuilt datasets `sleep` and `InsectSprays`. Explore these two datasets with histograms and boxplots. What are the questions each dataset is trying to answer, and what are your initial impressions from looking at the data?
+> To practice these on 'real' data, we will use the inbuilt datasets `sleep` and `InsectSprays`. 
+Explore these two datasets with histograms and boxplots. What are the questions each dataset is 
+trying to answer, and what are your initial impressions from looking at the data?
 
 ```{r real_data}
 #Learn about the datasets
@@ -106,7 +129,9 @@ ggplot(long_norm, aes(x=sample_id, y = sample_value)) + geom_?????()
 
 >Using previous datasets, use R to estimate summary statistics for each group in the data.  
 
-R has a number of inbuilt functions to calculate summary statistics. Each of them takes a set of numbers and reduces them down to a single summary value. For this exercise, we will be asking you to calculate the:
+R has a number of inbuilt functions to calculate summary statistics. Each of them takes a set of 
+numbers and reduces them down to a single summary value. For this exercise, we will be asking you
+to calculate the:
 
 * Mean - `mean()`
 * Median - `median()`
@@ -129,9 +154,13 @@ InsectSprays %>%
 
 >Apply a t-test to compare means between two samples.
 
-To ask if the means between two samples are the same, you can use the `t.test()` function. This uses the same formula notation as the boxplots did earlier. Remember that the structure of this formula is the response variable (what you are measuring) on the left, the grouping variable on the right.
+To ask if the means between two samples are the same, you can use the `t.test()` function. This uses
+the same formula notation as the boxplots did earlier. Remember that the structure of this formula 
+is the response variable (what you are measuring) on the left, the grouping variable on the right.
 
-Since the InsectSprays dataset has several groups, you will need to filter out just two to perform the t test otherwise you will get an error. Pick a few pairs of sprays to compare (from the boxplot or summary statistics). 
+Since the InsectSprays dataset has several groups, you will need to filter out just two to perform 
+the t test otherwise you will get an error. Pick a few pairs of sprays to compare (from the boxplot
+or summary statistics). 
 
 ```{r t_tests}
 # sleep t test
@@ -148,9 +177,93 @@ spray_AB_t
 
 ```
 
-What information does the t test show you, and how do you interpret this result?
+What information does the t test show you, and how do you interpret these result?
 
 # Exercise 6A v) - Linear regression
+
+> Apply linear least-squares regression to the `iris` dataset, and create scatter plots.
+
+### About the iris data
+From `?iris`: The iris data set has measurements (in cm)  of the variables sepal length
+and width and petal length and width, respectively,for 50 flowers from
+each of 3 species of iris. The species are Iris setosa, versicolor, and virginica.
+
+We will walk you through performing this analysis for the petal length and width data, and then you 
+can repeat it for the sepal length and width.
+
+```{r data_exploration}
+#Use just the petal data from the iris dataset
+petal <- iris %>% 
+  select(Petal.Width, Petal.Length) %>% 
+  rename(p_width = Petal.Width, p_length = Petal.Length)
+
+petal
+
+#Look at the data before we start to model it
+petal_plot <- ggplot(petal, aes(x = p_width, y = p_length)) +
+  geom_point()
+
+petal_plot
+```
+
+It appears as though that petal length increases with petal width. We can build a linear regression
+that models this relationship using the `lm` command. This function also uses the formula notation
+that you have used several times already today.
+
+```{r linear_regression}
+petal_model <- lm(p_length ~ p_width, data = petal)
+
+#Short summary of the model
+petal_model
+
+#Longer summary of the model
+summary(petal_model)
+```
+Just printing the linear model out provides a basic look at the results. Remember that the equation
+for a line is $Y = aX + b$. In fitting the linear model with `lm`, we are trying to determine the 
+"best" values of `a` and `b` that minimise the amount of error between the straight line and our data
+points. 
+
+The output from the model is telling us that the best estimate for `a` is 2.230 and for `b` is 1.084
+
+The more detailed output from `summary(petal_model)` gives additional information that can be used 
+to validate and interpret our model. 
+
+We can add the result from our model on top of our initial plot to see the relationship:
+
+```{r regression_results}
+#Manually
+petal_plot + 
+  geom_abline(intercept = 1.084, slope = 2.230)
+
+#Using geom_smooth()
+petal_plot +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+Try it yourself with the sepal length and width data from `iris`. What relationship do you find?
+
+```{r sepal_regression}
+#Get sepal data
+sepal <- iris %>% 
+  select(_____) %>% 
+  rename(_____)
+
+#Preliminary exploratory plots
+sepal_plot <- ggplot(_____) + 
+  _____
+
+#Model relationship using lm
+sepal_model <- lm(_____ ~ _____, data = sepal)
+
+#Check model
+sepal_model
+
+#Overlay model results on initial plot
+sepal_plot +
+  _____
+```
+
 
 # Exercise 6B iii) - Linear regression assumptions
 
