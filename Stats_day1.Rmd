@@ -286,7 +286,7 @@ resid_panel(petal_model)
 What do the diagnostic plots for your linear regression on the sepal measurements look like?
 
 ```{r sepal_diagnostics}
-_____
+
 ```
 
 > Use your model to make predictions on new data
@@ -330,6 +330,58 @@ predict(petal_model, many_new_data)
 
 # Exercise 6B iii) - Linear regression assumptions
 
+>We'll create perfect linear data, and linear data with normal (Gaussian)
+random noise, and non-normal random noise, data with outliers,
+and nonlinear data.
 
+Let's start with the basic relationship y = 2 * x + 5 and look at that over the values from 1 to 10.
+We'll then add some noise to this data by sampling or change it from a linear relationship.
+
+```{r data_setup}
+x = seq(1, 10, by = 0.5)
+perfect_linear <- (2 * x) + 5
+
+test_data <- tibble(x, perfect_linear) %>% 
+  mutate(
+    #Normal noise
+    normal_noise = perfect_linear + rnorm(n = length(x), mean = 0, sd = 2),
+    
+    #Non-normal noise: use exponential distribution
+    non_normal_noise = perfect_linear + rexp(n = length(x)),
+    
+    #Outliers: normal noise plus 10% chance of adding 8 to the value
+    outliers = perfect_linear + 
+      rnorm(n = length(x)) + 
+      sample(c(0, 8), prob = c(0.9, 0.1), size = length(x), replace = T),
+    
+    #Non-linear data: make the relationship quadratic instead
+    non_linear = x^2 + 5
+  )
+
+test_data
+```
+
+>  Fit a linear model for each of these situations and produce diagnostic plots. Note how 
+they look when the assumptions of linear regression are violated.
+
+As a reminder, we will demonstrate these steps using the perfect linear data.
+
+```{r perfect_linear_example}
+#Exploratory plotting
+ggplot(test_data, aes(x = x, y = perfect_linear)) + geom_point()
+
+#Fit linear model
+perfect_model <- lm(perfect_linear ~ x, data = test_data)
+
+#Diagnostic plots
+resid_panel(perfect_model)
+```
+
+Now you can then complete the exercise with the four other instances. How do the diagnostic plots 
+look when the assumptions of a linear regression are violated?
+
+```{r linear_regression_assumptions}
+
+```
 
 # Exercise 8B iv) - Transformations for linear regression
