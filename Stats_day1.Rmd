@@ -241,10 +241,11 @@ petal_plot +
   geom_smooth(method = "lm", se = FALSE)
 ```
 
-Try it yourself with the sepal length and width data from `iris`. What relationship do you find?
+Try it yourself by modelling the relationship between the sepal length and petal width data from 
+`iris`. What relationship do you find?
 
 ```{r sepal_regression}
-#Get sepal data
+#Get data
 sepal <- iris %>% 
   select(_____) %>% 
   rename(_____)
@@ -264,7 +265,71 @@ sepal_plot +
   _____
 ```
 
+> Look at the residuals of this regression to assess it
+
+You can get some summary plots of your model (including the residuals), by calling `plot` on the 
+result of running `lm`. Alternatively, if you install the `ggResidpanel` package you can produce
+diagnostic plots using `resid_panel`.
+
+The diagnostic plots from `resid_panel` show:
+*  Residual plot -residuals vs predicted values - test constant variance
+*  QQ plot - tests normality assumption
+*  Index Plot - additional plot to test assumption
+*  Histogram of residues - check if any skewness is present
+
+```{r diagnostic_plots}
+library(ggResidpanel)
+
+resid_panel(petal_model)
+```
+
+What do the diagnostic plots for your linear regression on the sepal measurements look like?
+
+```{r sepal_diagnostics}
+_____
+```
+
+> Use your model to make predictions on new data
+
+Ultimately, we wish to use the model to make some predictions about what may occur with new samples. 
+
+We know that our petal model has the form: p_length = 1.084 + 2.230 * p_width
+and we may wish to know what is the predicted length when then width is 0.75 cm.
+One way to do this is manually calculate it using the command line:
+
+```{r manual_prediction}
+1.084 + 2.230 * 0.75
+```
+
+But this is obviously not going to work for more than a few predictions. Instead, we can use the
+`predict` function in R. This function takes a fitted model and a data frame containing new data and
+uses the model to predict the outcome.
+
+For example, to predict the single case above where petal width is 0.75:
+
+```{r single_predict}
+#New data frame with same explanatory variable columns as our model
+new_data <- tibble(p_width = 0.75)
+
+predict(petal_model, new_data)
+```
+
+But `predict` allows us to predict many more values by providing a larger data frame of new data
+
+```{r more_predictions}
+# You can predict two values
+two_new_data <- tibble(p_width = c(0.05, 0.75))
+
+predict(petal_model, two_new_data)
+
+# Or you can predict for a range of values (0.60 0.65 0.70 0.75 0.80 0.85 0.90)
+many_new_data <- tibble(p_width = seq(0.6, 0.9, 0.05))
+
+predict(petal_model, many_new_data)
+```
 
 # Exercise 6B iii) - Linear regression assumptions
+
+
 
 # Exercise 8B iv) - Transformations for linear regression
