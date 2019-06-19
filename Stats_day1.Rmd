@@ -8,7 +8,7 @@ library(tidyverse)
 ```
 
 
-# Exercise 1E
+# Exercise 1E - Sampling and distributions
 
 Sampling from distributions in R is done using the `r<distrib>()` functions, where <distrib> is substituted for the short name of a distribution. Some distributions you might be exposed to (and their sampling functions) are:
 
@@ -102,7 +102,7 @@ ggplot(long_norm, aes(x=sample_id, y = sample_value)) + geom_?????()
 
 ```
 
-# Exercise 3E
+# Exercise 3E - Summary statistics and test statistics
 
 >Using previous datasets, use R to estimate summary statistics for each group in the data.  
 
@@ -117,10 +117,12 @@ R has a number of inbuilt functions to calculate summary statistics. Each of the
 for the two datasets used previously.
 
 ```{r summary_stats}
+#Summarise sleep
 sleep %>% 
   group_by(_____) %>% 
   summarise(_____)
 
+#Summarise InsectSprays
 InsectSprays %>% 
   _____
 ```
@@ -132,10 +134,12 @@ To ask if the means between two samples are the same, you can use the `t.test()`
 Since the InsectSprays dataset has several groups, you will need to filter out just two to perform the t test otherwise you will get an error. Pick a few pairs of sprays to compare (from the boxplot or summary statistics). 
 
 ```{r t_tests}
+# sleep t test
 sleep_t <- t.test(_____ ~ _____, data = sleep)
 
 sleep_t
 
+# InsectSprays t test
 spray_AB <- filter(InsectSprays, _____)
 
 spray_AB_t <- t.test(_____)
@@ -145,3 +149,9 @@ spray_AB_t
 ```
 
 What information does the t test show you, and how do you interpret this result?
+
+# Exercise 6A v) - Linear regression
+
+# Exercise 6B iii) - Linear regression assumptions
+
+# Exercise 8B iv) - Transformations for linear regression
