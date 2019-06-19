@@ -385,3 +385,49 @@ look when the assumptions of a linear regression are violated?
 ```
 
 # Exercise 8B iv) - Transformations for linear regression
+
+> Predicting Metal Recovery vs % Sulphur in feed in flotation
+
+The data for this exercise is found in the `data` folder, so read it in and fix up the column names:
+This dataset records XXXXX
+
+
+```{r 8B_data}
+recovery <- read_csv("data/metal_recovery_vs_sulphur.csv") %>% 
+  rename(feed_sulphur = `Feed Sulphur`, metal_recovery = `Metal Recovery`)
+
+recovery
+```
+As with any analysis, we'll plot the data first to get a feel for it:
+
+```{r sulphur_plot}
+recovery_plot <- ggplot(recovery, aes(x = feed_sulphur, y = metal_recovery)) + geom_point()
+recovery_plot
+```
+Is this a linear relationship? Not really. Instead, let's try some transformations of the data to 
+see if they help. For visualising this relationship, we can transform the *scale* of the ggplot, but
+if we wanted to use this transformation in a linear regression we would have to transform the data
+itself.
+
+To start with, we know that we can log transform an axis. Does transforming the `metal_recovery` 
+variable this way work?
+
+```{r y_log}
+recovery_plot + scale_y_continuous(trans = "log10")
+```
+Not at all. How about the x axis?
+
+```{r x_log}
+recovery_plot + scale_x_continuous(trans = "asn")
+```
+
+Looking a bit better. But there are other transformations you can try as well as options for the 
+`trans` argument of `scale_x_continuous()`. Try out an exponential (`exp`), square root (`sqrt`),
+natural logarithm (`log`), or reciprocal (`reciprocal`) transformation instead on each of axes.
+
+Which transformation (if any) seemed to be the most effective?
+
+```{r}
+recovery_plot + _______
+```
+
